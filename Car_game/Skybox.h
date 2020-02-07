@@ -44,5 +44,5 @@ private:
 	ID3D11Buffer* m_indexBuffer;
 
 	array<ID3D11ShaderResourceView*, 6> m_colorMap;
-	array<VertexPosColor, 8> m_vertices;
+	VertexPosColor *m_vertices;
 };
