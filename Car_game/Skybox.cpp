@@ -10,7 +10,6 @@ using namespace DirectX;
 
 SkyBox::SkyBox()
 {
-	
 	m_vertexs = {
 		array<int,4>{4,5,6,7},
 		{2,3,0,1},
@@ -60,7 +59,9 @@ SkyBox::~SkyBox() {
 }
 
 bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
+
 	HRESULT d3dResult;
+
 	//创建顶点缓冲区
 
 	D3D11_BUFFER_DESC vertexDesc;
@@ -90,8 +91,6 @@ bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
 	d3dResult = d3dDevice_->CreateBuffer(&indexDesc, &resourceData, &m_indexBuffer);
 	if (FAILED(d3dResult))
 		return false;
-
-
 	//加载贴图获得资源视图对象
 	array<const wchar_t*, 6> path = { L"top.BMP",L"bottom.BMP",L"left.BMP",L"right.BMP",L"front.BMP",L"back.BMP" };
 	wchar_t texture[15] = L"Texture\\";
@@ -104,32 +103,41 @@ bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
 		if (FAILED(d3dResult))
 			return false;
 	}
+
+	
+
 	return true;
+
+
 }
 
-void SkyBox::Render(ID3D11DeviceContext* d3dContext_, ID3D11Buffer* worldCB_, ID3D11Buffer* viewCB_) {
+
+
+
+
+void SkyBox::Render(ID3D11DeviceContext* d3dContext, ID3D11Buffer* worldCB, ID3D11Buffer* viewCB) {
 	unsigned int stride = sizeof(VertexPosSkyBox);
 	unsigned int offset = 0;
-	d3dContext_->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
-	d3dContext_->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R16_UINT, 0);
-	d3dContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	d3dContext->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
+	d3dContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R16_UINT, 0);
+	d3dContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	XMMATRIX rotationMat = XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
 	XMMATRIX translationMat = XMMatrixTranslation(0.0f, 0.0f, 0.0f);
 	XMMATRIX scaling = XMMatrixScaling(10000.0f, 10000.0f, 10000.0f);
 	XMMATRIX worldMat = rotationMat * scaling * translationMat;
 	worldMat = XMMatrixTranspose(worldMat);
-	d3dContext_->UpdateSubresource(worldCB_, 0, 0, &worldMat, 0, 0);
+	d3dContext->UpdateSubresource(worldCB, 0, 0, &worldMat, 0, 0);
 	int num = m_colorMap.size();
 	for (int i = 0; i < num; ++i) {
 		array<int, 4> index = m_vertexs[i];
 		VertexPosSkyBox vertex[] = {
-			{m_pos[index[0]],XMFLOAT2(0,0)},
-			{m_pos[index[1]],XMFLOAT2(1,0)},
-			{m_pos[index[2]],XMFLOAT2(0,1)},
-			{m_pos[index[3]],XMFLOAT2(1,1)}
+			{m_pos[index[0]],XMFLOAT2(0.0f, 0.0f)},
+			{m_pos[index[1]],XMFLOAT2(1.0f, 0.0f)},
+			{m_pos[index[2]],XMFLOAT2(0.0f, 1.0f)},
+			{m_pos[index[3]],XMFLOAT2(1.0f, 1.0f)}
 		};
-		d3dContext_->UpdateSubresource(m_vertexBuffer, 0, 0, &vertex, 0, 0);
-		d3dContext_->PSSetShaderResources(0, 1, &m_colorMap[i]);
-		d3dContext_->DrawIndexed(6, 0, 0);
+		d3dContext->UpdateSubresource(m_vertexBuffer, 0, 0, &vertex, 0, 0);
+		d3dContext->PSSetShaderResources(0, 1, &m_colorMap[i]);
+		d3dContext->DrawIndexed(7, 0, 0);
 	}
 }

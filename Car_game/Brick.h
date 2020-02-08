@@ -2,11 +2,18 @@
 #include <array>
 #include <d3d11.h>
 #include <DirectXMath.h>
-#include "VerTexPos.h"
+
 
 using std::array;
 using namespace DirectX;
 
+
+
+struct VertexPosBrick
+{
+	XMFLOAT3 pos;
+	XMFLOAT2 tex0;
+};
 
 
 class Brick {

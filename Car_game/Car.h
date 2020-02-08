@@ -1,11 +1,15 @@
 ﻿#include <array>
 #include <d3d11.h>
 #include <DirectXmath.h>
-#include "VerTexPos.h"
+
 using std::array;
 using namespace DirectX;
 
-
+struct VertexPosCar
+{
+	XMFLOAT3 pos;
+	XMFLOAT2 tex0;
+};
 
 class Car{
 public:

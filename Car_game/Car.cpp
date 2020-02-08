@@ -66,11 +66,11 @@ bool Car::Init_Resource(ID3D11Device* d3dDevice_) {
 	ZeroMemory(&vertexDesc, sizeof(vertexDesc));
 	vertexDesc.Usage = D3D11_USAGE_DEFAULT;
 	vertexDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexDesc.ByteWidth = sizeof(VertexPos) * 4;
+	vertexDesc.ByteWidth = sizeof(VertexPosCar) * 4;
 	d3dResult = d3dDevice_->CreateBuffer(&vertexDesc, nullptr, &bodyvertexBuffer_);
 	if (FAILED(d3dResult))
 		return false;
-	VertexPos tirevertices[1442] =
+	VertexPosCar tirevertices[1442] =
 	{
 		{XMFLOAT3(-0.5f,0.0f,0.0f),XMFLOAT2(0.0f,0.0f)},
 		{XMFLOAT3(0.5f,0.0f,0.0f),XMFLOAT2(0.0f,0.0f)}
@@ -99,7 +99,7 @@ bool Car::Init_Resource(ID3D11Device* d3dDevice_) {
 	D3D11_SUBRESOURCE_DATA resourceData;
 	ZeroMemory(&resourceData, sizeof(resourceData));
 	resourceData.pSysMem = tirevertices;
-	vertexDesc.ByteWidth = sizeof(VertexPos) * 10;
+	vertexDesc.ByteWidth = sizeof(VertexPosCar) * 10;
 	d3dResult = d3dDevice_->CreateBuffer(&vertexDesc, &resourceData, &tirevertexBuffer_);
 	if (FAILED(d3dResult))
 		return false;
@@ -173,7 +173,7 @@ void Car::setwheelTurn(int direction, int turn) {
 }
 
 void Car::Renderbody(ID3D11DeviceContext* d3dContext_, ID3D11Buffer* worldCB_, ID3D11Buffer* viewCB_) {
-	unsigned int stride = sizeof(VertexPos);
+	unsigned int stride = sizeof(VertexPosCar);
 	unsigned int offset = 0;
 	d3dContext_->IASetVertexBuffers(0, 1, &bodyvertexBuffer_, &stride, &offset);
 	d3dContext_->IASetIndexBuffer(bodyindexBuffer_, DXGI_FORMAT_R16_UINT, 0);
@@ -187,7 +187,7 @@ void Car::Renderbody(ID3D11DeviceContext* d3dContext_, ID3D11Buffer* worldCB_, I
 	d3dContext_->PSSetShaderResources(0, 1, &bodycolorMap_);
 	for (int i = 0; i < 6; ++i) {
 		array<int, 4> index = facevertexs_[i];
-		VertexPos vertex[] = {
+		VertexPosCar vertex[] = {
 			{postion_[index[0]],XMFLOAT2(0,0)},
 			{postion_[index[1]],XMFLOAT2(1,0)},
 			{postion_[index[2]],XMFLOAT2(0,1)},
@@ -198,7 +198,7 @@ void Car::Renderbody(ID3D11DeviceContext* d3dContext_, ID3D11Buffer* worldCB_, I
 	}
 }
 void Car::Rendertire(ID3D11DeviceContext* d3dContext_, ID3D11Buffer* worldCB_, ID3D11Buffer* viewCB_, ID3D11VertexShader* tiresolidColorVS_, ID3D11Buffer* textureCB_) {
-	unsigned int stride = sizeof(VertexPos);
+	unsigned int stride = sizeof(VertexPosCar);
 	unsigned int offset = 0;
 	d3dContext_->IASetVertexBuffers(0, 1, &tirevertexBuffer_, &stride, &offset);
 	d3dContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

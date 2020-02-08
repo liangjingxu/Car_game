@@ -12,7 +12,7 @@ public:
 	DemoBase();
 	virtual ~DemoBase();
 
-	bool Initialize(HINSTANCE hInstance, HWND hwnd);
+	bool InitResource(HINSTANCE hInstance, HWND hwnd);
 
 
 	virtual bool LoadContent();

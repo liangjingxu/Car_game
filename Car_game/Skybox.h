@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-
+#include <wrl/client.h>
 #include <array>
 #include <DirectXmath.h>
 #include <d3d11.h>
-
+#include <DDSTextureLoader.h>
 
 using std::array;
 using DirectX::XMFLOAT3;
@@ -17,14 +17,15 @@ struct VertexPosSkyBox
 	XMFLOAT2 tex0;
 };
 
-struct VertexPosColor
+
+struct SimpleVertex
 {
-	DirectX::XMFLOAT3 pos;
-	DirectX::XMFLOAT4 color;
-	static const D3D11_INPUT_ELEMENT_DESC inputLayout[2];
+	XMFLOAT3 Pos;
+	XMFLOAT2 Tex;
 };
 
-class SkyBox{
+
+class SkyBox  {
 public:
 	SkyBox();
 	virtual ~SkyBox();
@@ -34,7 +35,6 @@ public:
 	void Render(ID3D11DeviceContext* d3dContext_, ID3D11Buffer* worldCB_, ID3D11Buffer* viewCB_);
 
 private:
-
 	//8个顶点
 	array<XMFLOAT3, 8> m_pos;
 	//每个面对应的顶点
@@ -44,5 +44,5 @@ private:
 	ID3D11Buffer* m_indexBuffer;
 
 	array<ID3D11ShaderResourceView*, 6> m_colorMap;
-	VertexPosColor *m_vertices;
+
 };

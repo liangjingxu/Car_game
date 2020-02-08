@@ -152,6 +152,7 @@
     <ClCompile Include="GameDemo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Motion.cpp" />
+    <ClCompile Include="MySkyBox.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="ThirdCamera.cpp" />
   </ItemGroup>
@@ -161,11 +162,11 @@
     <ClInclude Include="Car.h" />
     <ClInclude Include="FirstCamera.h" />
     <ClInclude Include="Motion.h" />
+    <ClInclude Include="MySkyBox.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="ThirdCamera.h" />
     <ClInclude Include="DemoBase.h" />
     <ClInclude Include="GameDemo.h" />
-    <ClInclude Include="VerTexPos.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

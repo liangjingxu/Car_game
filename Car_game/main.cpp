@@ -57,7 +57,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 		return 0;
 	std::shared_ptr<DemoBase> demo(new GameDemo());
 	// Demo Initialize
-	bool result = demo->Initialize(hInstance, hwnd);
+	bool result = demo->InitResource(hInstance, hwnd);
 	if (!result)
 		return -1;
 	MSG msg = { 0 };

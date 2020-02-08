@@ -72,7 +72,7 @@ void DemoBase::UnloadContent()
 }
 
 
-bool DemoBase::Initialize(HINSTANCE hInstance, HWND hwnd)
+bool DemoBase::InitResource(HINSTANCE hInstance, HWND hwnd)
 {
 	m_hInstance = hInstance;
 	m_hwnd = hwnd;

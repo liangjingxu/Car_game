@@ -27,7 +27,7 @@ bool Brick::Init_Resource(ID3D11Device* d3dDevice_) {
 		XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f),
 		XMVectorSet(1.0f, 0.0f, 0.0f, 1.0f),
 	};
-	VertexPos *map = new VertexPos[1000000 << 2];
+	VertexPosBrick *map = new VertexPosBrick[1000000 << 2];
 	XMFLOAT2 texture[] = {
 		XMFLOAT2(0.0f,0.0f),
 		XMFLOAT2(1.0f,0.0f),
@@ -48,7 +48,7 @@ bool Brick::Init_Resource(ID3D11Device* d3dDevice_) {
 	ZeroMemory(&vertexDesc, sizeof(vertexDesc));
 	vertexDesc.Usage = D3D11_USAGE_DEFAULT;
 	vertexDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexDesc.ByteWidth = sizeof(VertexPos) * 4000000;
+	vertexDesc.ByteWidth = sizeof(VertexPosBrick) * 4000000;
 	D3D11_SUBRESOURCE_DATA resourceData;
 	ZeroMemory(&resourceData, sizeof(resourceData));
 	resourceData.pSysMem = map;
@@ -78,14 +78,14 @@ bool Brick::Init_Resource(ID3D11Device* d3dDevice_) {
 		return false;
 	delete[]indices;
 	//加载贴图获得资源视图对象
-	d3dResult = CreateWICTextureFromFile(d3dDevice_, L"Texture\\brick.jpeg", nullptr, &colorMap_);
+	d3dResult = CreateWICTextureFromFile(d3dDevice_, L"Texture\\floor.BMP", nullptr, &colorMap_);
 	if (FAILED(d3dResult))
 		return false;
 	return true;
 }
 
 void Brick::Render(ID3D11DeviceContext* d3dContext_, ID3D11Buffer* worldCB_, ID3D11Buffer* viewCB_) {
-	unsigned int stride = sizeof(VertexPos);
+	unsigned int stride = sizeof(VertexPosBrick);
 	unsigned int offset = 0;
 	d3dContext_->IASetVertexBuffers(0, 1, &vertexBuffer_, &stride, &offset);
 	d3dContext_->IASetIndexBuffer(indexBuffer_, DXGI_FORMAT_R32_UINT, 0);
@@ -99,13 +99,5 @@ void Brick::Render(ID3D11DeviceContext* d3dContext_, ID3D11Buffer* worldCB_, ID3
 	worldMat = XMMatrixTranspose(worldMat);
 	d3dContext_->UpdateSubresource(worldCB_, 0, 0, &worldMat, 0, 0);
 	d3dContext_->DrawIndexed(1000000 * 6, 0, 0);
-	/*for (float x = -1000; x < 1000; x += 10) {
-		for (float z = -1000; z < 1000; z += 10) {
-			XMMATRIX translationMat = XMMatrixTranslation(x, 0.0f, z);
-			XMMATRIX worldMat = rsMat * translationMat;
-			worldMat = XMMatrixTranspose(worldMat);
-			d3dContext_->UpdateSubresource(worldCB_, 0, 0, &worldMat, 0, 0);
-			d3dContext_->DrawIndexed(6, 0, 0);
-		}
-	}*/
+	
 }
