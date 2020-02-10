@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Car2.cpp" />
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="DemoBase.cpp" />
     <ClCompile Include="FirstCamera.cpp" />

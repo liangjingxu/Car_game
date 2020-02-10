@@ -30,12 +30,13 @@ bool Brick::Init_Resource(ID3D11Device* d3dDevice_) {
 	VertexPosBrick *map = new VertexPosBrick[1000000 << 2];
 	XMFLOAT2 texture[] = {
 		XMFLOAT2(0.0f,0.0f),
-		XMFLOAT2(1.0f,0.0f),
+
 		XMFLOAT2(0.0f,1.0f),
+		XMFLOAT2(1.0f,0.0f),
 		XMFLOAT2(1.0f,1.0f)
 	};
-	for (int x = -500; x < 500; ++x) {
-		for (int z = -500; z < 500; ++z) {
+	for (int x = -100; x < 100; ++x) {
+		for (int z = -100; z < 100; ++z) {
 			XMMATRIX translationMat = XMMatrixTranslation(float(x), 0.0f, float(z));
 			//worldMat = XMMatrixTranspose(worldMat);
 			for (int i = 0; i < 4; ++i) {

@@ -59,7 +59,38 @@ SkyBox::~SkyBox() {
 }
 
 bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
+	SimpleVertex vertices[] =
+	{
+		{ XMFLOAT3(-1.0f,  1.0f, -1.0f) },
+		{ XMFLOAT3(1.0f,  1.0f, -1.0f) },
+		{ XMFLOAT3(1.0f,  1.0f,  1.0f) },
+		{ XMFLOAT3(-1.0f,  1.0f,  1.0f) },
+		{ XMFLOAT3(-1.0f, -1.0f, -1.0f) },
+		{ XMFLOAT3(1.0f, -1.0f, -1.0f) },
+		{ XMFLOAT3(1.0f, -1.0f,  1.0f) },
+		{ XMFLOAT3(-1.0f, -1.0f,  1.0f) },
+	};
 
+	WORD indices[] =
+	{
+		3,1,0,
+		2,1,3,
+
+		0,5,4,
+		1,5,0,
+
+		3,4,7,
+		0,4,3,
+
+		1,6,5,
+		2,6,1,
+
+		2,7,6,
+		3,7,2,
+
+		6,4,5,
+		7,4,6,
+	};
 	HRESULT d3dResult;
 
 	//创建顶点缓冲区
@@ -68,7 +99,7 @@ bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
 	ZeroMemory(&vertexDesc, sizeof(vertexDesc));
 	vertexDesc.Usage = D3D11_USAGE_DEFAULT;
 	vertexDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexDesc.ByteWidth = sizeof(VertexPosSkyBox) * 4;
+	vertexDesc.ByteWidth = sizeof(SimpleVertex) * 8;
 	d3dResult = d3dDevice_->CreateBuffer(&vertexDesc, nullptr, &m_vertexBuffer);
 	if (FAILED(d3dResult))
 		return false;
@@ -85,12 +116,14 @@ bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
 	indexDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexDesc.ByteWidth = sizeof(WORD) * 6;
 	indexDesc.CPUAccessFlags = 0;
+
 	D3D11_SUBRESOURCE_DATA resourceData;
 	ZeroMemory(&resourceData, sizeof(resourceData));
 	resourceData.pSysMem = indices;
 	d3dResult = d3dDevice_->CreateBuffer(&indexDesc, &resourceData, &m_indexBuffer);
 	if (FAILED(d3dResult))
 		return false;
+
 	//加载贴图获得资源视图对象
 	array<const wchar_t*, 6> path = { L"top.BMP",L"bottom.BMP",L"left.BMP",L"right.BMP",L"front.BMP",L"back.BMP" };
 	wchar_t texture[15] = L"Texture\\";

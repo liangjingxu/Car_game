@@ -21,7 +21,6 @@ struct VertexPosSkyBox
 struct SimpleVertex
 {
 	XMFLOAT3 Pos;
-	XMFLOAT2 Tex;
 };
 
 
@@ -39,6 +38,7 @@ private:
 	array<XMFLOAT3, 8> m_pos;
 	//每个面对应的顶点
 	array<array<int, 4>, 6> m_vertexs;
+
 
 	ID3D11Buffer* m_vertexBuffer;
 	ID3D11Buffer* m_indexBuffer;

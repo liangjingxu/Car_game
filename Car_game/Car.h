@@ -25,9 +25,9 @@ public:
 private:
 
 	//8个顶点
-	array<XMFLOAT3, 8> postion_;
+	array<XMFLOAT3, 8> m_pos;
 	//每个面对应的顶点
-	array<array<int, 4>, 6> facevertexs_;
+	array<array<int, 4>, 6> m_vertexs;
 
 	ID3D11ShaderResourceView* bodycolorMap_;
 	ID3D11ShaderResourceView* tirefrontcolorMap_;
@@ -38,6 +38,10 @@ private:
 	ID3D11Buffer* bodyindexBuffer_;
 	ID3D11Buffer* tirefrontindexBuffer_;
 	ID3D11Buffer* tiresideindexBuffer_;
+
+
+	array<ID3D11ShaderResourceView*, 6> m_colorMap;
+
 
 	//世界空间汽车的中心坐标
 	XMFLOAT3 center_;

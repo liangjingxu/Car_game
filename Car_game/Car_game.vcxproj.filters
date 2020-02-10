@@ -36,13 +36,16 @@
     <ClCompile Include="Brick.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Car.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Motion.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MySkyBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Car2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Car.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
