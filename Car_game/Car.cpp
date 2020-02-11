@@ -1,6 +1,41 @@
 ﻿#include "Car.h"
 #include <WICTextureLoader.h>
 
+SimpleVerCar m_vertices[] = {
+
+
+		{ XMFLOAT3(-1,1,-1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(1,1,-1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(-1,1,1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(1,1,1),XMFLOAT2(1.0f, 1.0f)},
+
+		{ XMFLOAT3(-1,-1,1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(1,-1,1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(-1,-1,-1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(1,-1,-1),XMFLOAT2(1.0f, 1.0f)},
+
+		{ XMFLOAT3(-1,1,-1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(-1,1,1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(-1,-1,-1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(-1,-1,1),XMFLOAT2(1.0f, 1.0f)},
+
+		{ XMFLOAT3(1,1,1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(1,1,-1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(1,-1,1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(1,-1,-1),XMFLOAT2(1.0f, 1.0f)},
+
+		{ XMFLOAT3(-1,1,1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(1,1,1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(-1,-1,1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(1,-1,1),XMFLOAT2(1.0f, 1.0f)},
+
+		{ XMFLOAT3(1,1,-1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(-1,1,-1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(1,-1,-1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(-1,-1,-1),XMFLOAT2(1.0f, 1.0f)}
+};
+
+
 Car::Car()
 	:bodycolorMap_(nullptr),
 	tirefrontcolorMap_(nullptr),
@@ -20,24 +55,7 @@ Car::Car()
 		it = 0;
 
 
-	m_vertexs = {
-		array<int,4>{4,5,6,7},
-		{2,3,0,1},
-		{4,6,0,2},
-		{7,5,3,1},
-		{6,7,2,3},
-		{5,4,1,0}
-	};
-	m_pos = {
-		XMFLOAT3(-1,-1,-1),
-		XMFLOAT3(1,-1,-1),
-		XMFLOAT3(-1,-1,1),
-		XMFLOAT3(1,-1,1),
-		XMFLOAT3(-1,1,-1),
-		XMFLOAT3(1,1,-1),
-		XMFLOAT3(-1,1,1),
-		XMFLOAT3(1,1,1)
-	};
+	
 }
 
 Car::~Car() {
@@ -67,13 +85,13 @@ bool Car::Init_Resource(ID3D11Device* d3dDevice_) {
 	ZeroMemory(&vertexDesc, sizeof(vertexDesc));
 	vertexDesc.Usage = D3D11_USAGE_DEFAULT;
 	vertexDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexDesc.ByteWidth = sizeof(VertexPosCar) * 8;
+	vertexDesc.ByteWidth = sizeof(SimpleVerCar) * 8;
 	d3dResult = d3dDevice_->CreateBuffer(&vertexDesc, nullptr, &bodyvertexBuffer_);
 	if (FAILED(d3dResult))
 		return false;
 
 
-	VertexPosCar tirevertices[1442] =
+	SimpleVerCar tirevertices[1442] =
 	{
 		{XMFLOAT3(-0.5f,0.0f,0.0f),XMFLOAT2(0.0f,0.0f)},
 		{XMFLOAT3(0.5f,0.0f,0.0f),XMFLOAT2(0.0f,0.0f)}
@@ -122,7 +140,7 @@ bool Car::Init_Resource(ID3D11Device* d3dDevice_) {
 	D3D11_SUBRESOURCE_DATA resourceData;
 	ZeroMemory(&resourceData, sizeof(resourceData));
 	resourceData.pSysMem = tirevertices;
-	vertexDesc.ByteWidth = sizeof(VertexPosCar) * 10;
+	vertexDesc.ByteWidth = sizeof(SimpleVerCar) * 10;
 	d3dResult = d3dDevice_->CreateBuffer(&vertexDesc, &resourceData, &tirevertexBuffer_);
 	if (FAILED(d3dResult))
 		return false;
@@ -181,15 +199,22 @@ void Car::settiretexturerotaion(float distance) {
 }
 void Car::setwheelTurn(int direction, int turn) {
 	switch (direction) {
-	case -1:wheelturn_[0] = -turn; break;
-	case 0:wheelturn_[0] = wheelturn_[1] = 0; break;
-	case 1:wheelturn_[1] = turn; break;
-	default:break;
+
+	case -1:
+	case 1:
+		wheelturn_[1] = turn; 
+		break;
+	case 0:
+		wheelturn_[0] = wheelturn_[1] = 0; 
+		break;
+	default:
+		break;
 	}
 }
 
 void Car::Renderbody(ID3D11DeviceContext* d3dContext, ID3D11Buffer* worldCB_, ID3D11Buffer* viewCB_) {
-	unsigned int stride = sizeof(VertexPosCar);
+	
+	unsigned int stride = sizeof(SimpleVerCar);
 	unsigned int offset = 0;
 	d3dContext->IASetVertexBuffers(0, 1, &bodyvertexBuffer_, &stride, &offset);
 	d3dContext->IASetIndexBuffer(bodyindexBuffer_, DXGI_FORMAT_R16_UINT, 0);
@@ -201,23 +226,21 @@ void Car::Renderbody(ID3D11DeviceContext* d3dContext, ID3D11Buffer* worldCB_, ID
 	worldMat = XMMatrixTranspose(worldMat);
 	d3dContext->UpdateSubresource(worldCB_, 0, 0, &worldMat, 0, 0);
 	int num = m_colorMap.size();
+	SimpleVerCar vertex[4];
 	for (int i = 0; i < num; ++i) {
-		array<int, 4> index = m_vertexs[i];
-		VertexPosCar vertex[] = {
-			{m_pos[index[0]],XMFLOAT2(0.0f, 0.0f)},
-			{m_pos[index[1]],XMFLOAT2(1.0f, 0.0f)},
-			{m_pos[index[2]],XMFLOAT2(0.0f, 1.0f)},
-			{m_pos[index[3]],XMFLOAT2(1.0f, 1.0f)}
-		};
+		for (int j = 0; j < 4; ++j)
+		{
+			vertex[j] = m_vertices[4 * i + j];
+		}
 		d3dContext->UpdateSubresource(bodyvertexBuffer_, 0, 0, &vertex, 0, 0);
 		d3dContext->PSSetShaderResources(0, 1, &m_colorMap[i]);
-		d3dContext->DrawIndexed(6, 0, 0);
+		d3dContext->DrawIndexed(7, 0, 0);
 	}
 }
 
 
 void Car::Rendertire(ID3D11DeviceContext* d3dContext_, ID3D11Buffer* worldCB_, ID3D11Buffer* viewCB_, ID3D11VertexShader* tiresolidColorVS_, ID3D11Buffer* textureCB_) {
-	unsigned int stride = sizeof(VertexPosCar);
+	unsigned int stride = sizeof(SimpleVerCar);
 	unsigned int offset = 0;
 	d3dContext_->IASetVertexBuffers(0, 1, &tirevertexBuffer_, &stride, &offset);
 	d3dContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -238,7 +261,7 @@ void Car::Rendertire(ID3D11DeviceContext* d3dContext_, ID3D11Buffer* worldCB_, I
 		d3dContext_->IASetIndexBuffer(tirefrontindexBuffer_, DXGI_FORMAT_R16_UINT, 0);
 		d3dContext_->PSSetShaderResources(0, 1, &tirefrontcolorMap_);
 		for (int j = 0; j < 180; ++j) {
-			XMMATRIX rotationMat = XMMatrixRotationRollPitchYaw(radian*j + tiretexturerotation_, wholerotation_ + wheelturn_[i >> 1] * XM_PIDIV4, 0.0f);
+			XMMATRIX rotationMat = XMMatrixRotationRollPitchYaw(radian*j + tiretexturerotation_, wholerotation_ + wheelturn_[i / 2] * XM_PIDIV4, 0.0f);
 			XMMATRIX worldMat = rotationMat * translationMat[i];
 			worldMat = XMMatrixTranspose(worldMat);
 			d3dContext_->UpdateSubresource(worldCB_, 0, 0, &worldMat, 0, 0);

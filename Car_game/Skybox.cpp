@@ -2,41 +2,52 @@
 #include  <WICTextureLoader.h>
 #include "DemoBase.h"
 
-
-
 using namespace DirectX;
 
+SimpleVerSky m_vertices[] = {
 
+
+		{ XMFLOAT3(-1,1,-1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(1,1,-1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(-1,1,1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(1,1,1),XMFLOAT2(1.0f, 1.0f)},
+
+		{ XMFLOAT3(-1,-1,1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(1,-1,1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(-1,-1,-1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(1,-1,-1),XMFLOAT2(1.0f, 1.0f)},
+
+		{ XMFLOAT3(-1,1,-1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(-1,1,1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(-1,-1,-1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(-1,-1,1),XMFLOAT2(1.0f, 1.0f)},
+
+		{ XMFLOAT3(1,1,1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(1,1,-1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(1,-1,1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(1,-1,-1),XMFLOAT2(1.0f, 1.0f)},
+
+		{ XMFLOAT3(-1,1,1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(1,1,1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(-1,-1,1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(1,-1,1),XMFLOAT2(1.0f, 1.0f)},
+
+		{ XMFLOAT3(1,1,-1),XMFLOAT2(0.0f, 0.0f)},
+		{ XMFLOAT3(-1,1,-1),XMFLOAT2(1.0f, 0.0f)},
+		{ XMFLOAT3(1,-1,-1),XMFLOAT2(0.0f, 1.0f)},
+		{ XMFLOAT3(-1,-1,-1),XMFLOAT2(1.0f, 1.0f)}
+};
 
 SkyBox::SkyBox()
 {
-	m_vertexs = {
-		array<int,4>{4,5,6,7},
-		{2,3,0,1},
-		{4,6,0,2},
-		{7,5,3,1},
-		{6,7,2,3},
-		{5,4,1,0}
-	};
-	m_pos = {
-		
-		XMFLOAT3(-1.0f ,-1.0f ,-1.0f),
-		XMFLOAT3(1.0f ,-1.0f ,-1.0f),
-		XMFLOAT3(-1.0f ,-1.0f ,1.0f),
-		XMFLOAT3(1.0f ,-1.0f ,1.0f),
-		XMFLOAT3(-1.0f ,1.0f ,-1.0f),
-		XMFLOAT3(1.0f ,1.0f ,-1.0f),
-		XMFLOAT3(-1.0f ,1.0f ,1.0f),
-		XMFLOAT3(1.0f ,1.0f ,1.0f)
-	};
-
+	
 	for (auto &it : m_colorMap)
 		it = nullptr;
 
 	m_vertexBuffer = nullptr;
 	m_indexBuffer = nullptr;
 
-	
+
 }
 
 SkyBox::~SkyBox() {
@@ -59,38 +70,8 @@ SkyBox::~SkyBox() {
 }
 
 bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
-	SimpleVertex vertices[] =
-	{
-		{ XMFLOAT3(-1.0f,  1.0f, -1.0f) },
-		{ XMFLOAT3(1.0f,  1.0f, -1.0f) },
-		{ XMFLOAT3(1.0f,  1.0f,  1.0f) },
-		{ XMFLOAT3(-1.0f,  1.0f,  1.0f) },
-		{ XMFLOAT3(-1.0f, -1.0f, -1.0f) },
-		{ XMFLOAT3(1.0f, -1.0f, -1.0f) },
-		{ XMFLOAT3(1.0f, -1.0f,  1.0f) },
-		{ XMFLOAT3(-1.0f, -1.0f,  1.0f) },
-	};
 
-	WORD indices[] =
-	{
-		3,1,0,
-		2,1,3,
-
-		0,5,4,
-		1,5,0,
-
-		3,4,7,
-		0,4,3,
-
-		1,6,5,
-		2,6,1,
-
-		2,7,6,
-		3,7,2,
-
-		6,4,5,
-		7,4,6,
-	};
+	
 	HRESULT d3dResult;
 
 	//创建顶点缓冲区
@@ -99,7 +80,7 @@ bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
 	ZeroMemory(&vertexDesc, sizeof(vertexDesc));
 	vertexDesc.Usage = D3D11_USAGE_DEFAULT;
 	vertexDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexDesc.ByteWidth = sizeof(SimpleVertex) * 8;
+	vertexDesc.ByteWidth = sizeof(SimpleVerSky) * 8 ;
 	d3dResult = d3dDevice_->CreateBuffer(&vertexDesc, nullptr, &m_vertexBuffer);
 	if (FAILED(d3dResult))
 		return false;
@@ -107,9 +88,9 @@ bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
 
 	//创建索引缓存
 	WORD indices[] =
-	{
+	{	
 		0,1,2,1,3,2
-	};
+	};	
 	D3D11_BUFFER_DESC indexDesc;
 	ZeroMemory(&indexDesc, sizeof(indexDesc));
 	indexDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -137,7 +118,6 @@ bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
 			return false;
 	}
 
-	
 
 	return true;
 
@@ -149,7 +129,10 @@ bool SkyBox::Init_Resource(ID3D11Device* d3dDevice_) {
 
 
 void SkyBox::Render(ID3D11DeviceContext* d3dContext, ID3D11Buffer* worldCB, ID3D11Buffer* viewCB) {
-	unsigned int stride = sizeof(VertexPosSkyBox);
+	
+	
+	
+	unsigned int stride = sizeof(SimpleVerSky);
 	unsigned int offset = 0;
 	d3dContext->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
 	d3dContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R16_UINT, 0);
@@ -161,14 +144,12 @@ void SkyBox::Render(ID3D11DeviceContext* d3dContext, ID3D11Buffer* worldCB, ID3D
 	worldMat = XMMatrixTranspose(worldMat);
 	d3dContext->UpdateSubresource(worldCB, 0, 0, &worldMat, 0, 0);
 	int num = m_colorMap.size();
-	for (int i = 0; i < num; ++i) {
-		array<int, 4> index = m_vertexs[i];
-		VertexPosSkyBox vertex[] = {
-			{m_pos[index[0]],XMFLOAT2(0.0f, 0.0f)},
-			{m_pos[index[1]],XMFLOAT2(1.0f, 0.0f)},
-			{m_pos[index[2]],XMFLOAT2(0.0f, 1.0f)},
-			{m_pos[index[3]],XMFLOAT2(1.0f, 1.0f)}
-		};
+	SimpleVerSky vertex[4];
+	for (int i = 0; i < num; i++) {
+		for (int j = 0; j < 4; j++)
+		{
+			vertex[j] = m_vertices[4 * i + j];
+		}
 		d3dContext->UpdateSubresource(m_vertexBuffer, 0, 0, &vertex, 0, 0);
 		d3dContext->PSSetShaderResources(0, 1, &m_colorMap[i]);
 		d3dContext->DrawIndexed(7, 0, 0);

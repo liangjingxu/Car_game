@@ -30,22 +30,19 @@
     <ClCompile Include="GameDemo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Skybox.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Motion.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MySkyBox.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Car2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Car.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,9 +62,6 @@
     <ClInclude Include="FirstCamera.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Skybox.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -77,7 +71,7 @@
     <ClInclude Include="Motion.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MySkyBox.h">
+    <ClInclude Include="SkyBox.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,17 +1,18 @@
 ﻿#include <array>
 #include <d3d11.h>
 #include <DirectXmath.h>
-
 using std::array;
 using namespace DirectX;
 
-struct VertexPosCar
+struct SimpleVerCar
 {
-	XMFLOAT3 pos;
-	XMFLOAT2 tex0;
+	XMFLOAT3 m_pos;
+	XMFLOAT2 m_tex;
 };
 
-class Car{
+
+class Car
+{
 public:
 	Car();
 	virtual ~Car();
@@ -24,10 +25,7 @@ public:
 
 private:
 
-	//8个顶点
-	array<XMFLOAT3, 8> m_pos;
-	//每个面对应的顶点
-	array<array<int, 4>, 6> m_vertexs;
+
 
 	ID3D11ShaderResourceView* bodycolorMap_;
 	ID3D11ShaderResourceView* tirefrontcolorMap_;

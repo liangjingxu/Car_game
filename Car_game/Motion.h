@@ -25,5 +25,6 @@ private:
 	XMVECTOR pos_;
 	float rotation_, distance_;
 	XMVECTOR facing_;
-	int direction_, turn_;
+	int direction_;
+	int turn_;
 };

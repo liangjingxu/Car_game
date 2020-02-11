@@ -1,8 +1,9 @@
-#pragma once
+﻿#pragma once
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <dinput.h>
+
 
 #define KEYDOWN(name, key) ( name[key] & 0x80 )
 #define BUTTONDOWN(name, key) ( name.rgbButtons[key] & 0x80 )

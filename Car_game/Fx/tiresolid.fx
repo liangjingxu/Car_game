@@ -34,3 +34,7 @@ PS_Input VS_Main(VS_Input vertex)
 	vsOut.tex0 = mul(textMatirx, float4(vertex.tex0, 0.0f, 1.0f));
 	return vsOut;
 }
+float4 PS_Main(PS_Input frag) : SV_TARGET
+{
+    return colorMap_.Sample(colorSampler_, frag.tex0);
+}

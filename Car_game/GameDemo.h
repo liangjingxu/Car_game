@@ -11,11 +11,12 @@
 #include "Motion.h"
 #include <vector>
 
+
 using DirectX::XMMATRIX;
 using std::shared_ptr;
 using std::vector;
 
-class GameDemo :public DemoBase {
+class GameDemo:public DemoBase {
 public:
 	GameDemo();
 	virtual ~GameDemo();

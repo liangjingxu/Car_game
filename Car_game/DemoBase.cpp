@@ -84,7 +84,7 @@ bool DemoBase::InitResource(HINSTANCE hInstance, HWND hwnd)
 	UINT width = rc.right - rc.left;
 	UINT height = rc.bottom - rc.top;
 
-	//指明驱动设备类型和特征等级
+	//	//指明驱动设备类型和特征等级
 	UINT creationFlags = 0;
 #ifdef _DEBUG
 	creationFlags |= D3D11_CREATE_DEVICE_DEBUG;

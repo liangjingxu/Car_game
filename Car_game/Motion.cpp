@@ -13,10 +13,14 @@ Motion::Motion()
 Motion::~Motion() {}
 
 void Motion::setDirection(int direction) {
-	direction_ = direction;
+
+		direction_ = direction;
+	
+	
 }
 
 void Motion::setTurn(int turn) {
+	
 	turn_ = turn;
 }
 
