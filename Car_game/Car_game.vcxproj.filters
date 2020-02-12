@@ -36,13 +36,19 @@
     <ClCompile Include="Motion.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Car2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Car.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SkyBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\Direct3D\DirectX11-With-Windows-SDK\10 Camera\Keyboard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\Direct3D\DirectX11-With-Windows-SDK\10 Camera\Mouse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,6 +78,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="SkyBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\Direct3D\DirectX11-With-Windows-SDK\10 Camera\Mouse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Desktop\Direct3D\DirectX11-With-Windows-SDK\10 Camera\Keyboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
